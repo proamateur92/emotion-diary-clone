@@ -1,0 +1,27 @@
+.Button {
+  padding: 0.6rem 1.2rem;
+
+  border: none;
+  border-radius: 5px;
+
+  font-family: "Dongle", sans-serif;
+  font-size: 1.5rem;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.default {
+  background-color: #ececec;
+}
+
+.positive {
+  background-color: #64c964;
+  color: #ffffff;
+}
+
+.negative {
+  background-color: #fd565f;
+  color: #ffffff;
+}
