@@ -1,0 +1,25 @@
+.menu_wrapper {
+  margin: 1.25rem 0;
+  display: flex;
+}
+
+.ControlMenu {
+  font-size: 1.5rem;
+
+  margin-right: 0.6rem;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: #ececec;
+
+  padding: 0.6rem;
+}
+
+.right_col {
+  flex: 1;
+}
+
+.right_col button {
+  width: 100%;
+}

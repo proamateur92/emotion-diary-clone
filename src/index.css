@@ -12,3 +12,7 @@ body {
 
   background-color: #f6f6f6;
 }
+
+select {
+  font-family: "Dongle", sans-serif;
+}

@@ -9,17 +9,14 @@ import Main from "./pages/Main";
 import DiaryWrite from "./pages/DiaryWrite";
 import DiaryDetail from "./pages/DiaryDetail";
 import DiaryEdit from "./pages/DiaryEdit";
-import ErrorPage from "./pages/ErrorPage";
-
-// components
-import Header from "./components/Layout/Header";
-import Button from "./components/Layout/Button";
+// import ErrorPage from "./pages/ErrorPage";
 
 // react
 import { useReducer, useRef } from "react";
 
 // context api
 export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 // reducer 함수
 const reducer = (state, action) => {
@@ -50,13 +47,56 @@ const reducer = (state, action) => {
   return newState;
 };
 
+const DUMMY_DATA = [
+  {
+    id: 1,
+    emotion: 1,
+    content: "1번 일기",
+    date: new Date(2022, 10, 2).getTime(),
+  },
+  {
+    id: 2,
+    emotion: 2,
+    content: "2번 일기",
+    date: new Date(2022, 10, 13).getTime(),
+  },
+  {
+    id: 3,
+    emotion: 3,
+    content: "3번 일기",
+    date: new Date(2022, 10, 24).getTime(),
+  },
+  {
+    id: 4,
+    emotion: 4,
+    content: "4번 일기",
+    date: new Date(2022, 10, 14).getTime(),
+  },
+  {
+    id: 5,
+    emotion: 5,
+    content:
+      "5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기",
+    date: 1669560968297,
+  },
+  {
+    id: 6,
+    emotion: 4,
+    content: "6번 일기",
+    date: new Date(2022, 9, 2).getTime(),
+  },
+  {
+    id: 7,
+    emotion: 2,
+    content: "7번 일기",
+    date: new Date(2022, 11, 2).getTime(),
+  },
+];
 const App = () => {
   // data는 useReducer의 두번째 인자를 받는다.
-  const [diaryData, dispatch] = useReducer(reducer, []);
+  const [diaryData, dispatch] = useReducer(reducer, DUMMY_DATA);
 
   const dataId = useRef(0);
-
-  console.log(`dataId: ${dataId.current}`);
 
   // CREATE
   const onCreate = (date, content, emotion) => {
@@ -93,12 +133,14 @@ const App = () => {
 
   return (
     <DiaryStateContext.Provider value={diaryData}>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/diary/1" element={<DiaryDetail onRemove={onRemove} />} />
-        <Route path="/write" element={<DiaryWrite onCreate={onCreate} />} />
-        <Route path="/edit" element={<DiaryEdit onEdit={onEdit} />} />
-      </Routes>
+      <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/diary/:diaryId" element={<DiaryDetail />} />
+          <Route path="/write" element={<DiaryWrite />} />
+          <Route path="/edit/:diaryId" element={<DiaryEdit />} />
+        </Routes>
+      </DiaryDispatchContext.Provider>
     </DiaryStateContext.Provider>
   );
 };

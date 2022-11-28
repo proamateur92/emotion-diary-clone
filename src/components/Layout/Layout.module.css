@@ -1,7 +1,8 @@
 .Layout {
   width: 80vw;
   max-width: 40rem;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 
   padding: 2rem;
 
