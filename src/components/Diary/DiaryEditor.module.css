@@ -1,0 +1,51 @@
+.DiaryEditor h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.DiaryEditor span {
+  font-size: 1.5rem;
+}
+
+.DiaryEditor section {
+  margin: 1.8rem 0;
+}
+
+.DiaryEditor textarea {
+  width: 100%;
+  min-height: 12.5rem;
+
+  padding: 1.2rem;
+
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+
+  box-sizing: border-box;
+
+  /* 가로로 늘어나지 않도록 처리 */
+  resize: vertical;
+}
+
+.input_date {
+  padding: 0.6rem;
+
+  background-color: #ececec;
+
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.emotion_list_wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+
+  gap: 5%;
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: space-between;
+}

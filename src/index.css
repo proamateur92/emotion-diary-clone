@@ -13,6 +13,9 @@ body {
   background-color: #f6f6f6;
 }
 
-select {
+select,
+input,
+textarea {
   font-family: "Dongle", sans-serif;
+  font-size: 1.5rem;
 }

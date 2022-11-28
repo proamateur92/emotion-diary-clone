@@ -54,43 +54,43 @@ const DUMMY_DATA = [
     content: "1번 일기",
     date: new Date(2022, 10, 2).getTime(),
   },
-  {
-    id: 2,
-    emotion: 2,
-    content: "2번 일기",
-    date: new Date(2022, 10, 13).getTime(),
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "3번 일기",
-    date: new Date(2022, 10, 24).getTime(),
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "4번 일기",
-    date: new Date(2022, 10, 14).getTime(),
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content:
-      "5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기",
-    date: 1669560968297,
-  },
-  {
-    id: 6,
-    emotion: 4,
-    content: "6번 일기",
-    date: new Date(2022, 9, 2).getTime(),
-  },
-  {
-    id: 7,
-    emotion: 2,
-    content: "7번 일기",
-    date: new Date(2022, 11, 2).getTime(),
-  },
+  // {
+  //   id: 2,
+  //   emotion: 2,
+  //   content: "2번 일기",
+  //   date: new Date(2022, 10, 13).getTime(),
+  // },
+  // {
+  //   id: 3,
+  //   emotion: 3,
+  //   content: "3번 일기",
+  //   date: new Date(2022, 10, 24).getTime(),
+  // },
+  // {
+  //   id: 4,
+  //   emotion: 4,
+  //   content: "4번 일기",
+  //   date: new Date(2022, 10, 14).getTime(),
+  // },
+  // {
+  //   id: 5,
+  //   emotion: 5,
+  //   content:
+  //     "5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기5번 일기",
+  //   date: 1669560968297,
+  // },
+  // {
+  //   id: 6,
+  //   emotion: 4,
+  //   content: "6번 일기",
+  //   date: new Date(2022, 9, 2).getTime(),
+  // },
+  // {
+  //   id: 7,
+  //   emotion: 2,
+  //   content: "7번 일기",
+  //   date: new Date(2022, 11, 2).getTime(),
+  // },
 ];
 const App = () => {
   // data는 useReducer의 두번째 인자를 받는다.

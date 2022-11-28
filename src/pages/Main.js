@@ -49,11 +49,11 @@ const Main = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        1
       ).getTime();
 
       setDiary(
-        diaryList.filter((it) => it.date >= firstDay && it.date <= lastDay)
+        diaryList.filter((it) => it.date >= firstDay && it.date < lastDay)
       );
     }
   }, [diaryList, curDate]);
