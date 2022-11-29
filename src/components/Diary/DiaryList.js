@@ -103,7 +103,9 @@ const DiaryList = ({ diaryList }) => {
           />
         </div>
       </div>
-      {orderedByTime().length === 0 && <span>등록된 일기가 없습니다.</span>}
+      {orderedByTime().length === 0 && (
+        <div className={classes.no_diary}>등록된 일기가 없습니다.</div>
+      )}
       {diaryList.length > 0 &&
         orderedByTime().map((it) => <DairyItem key={it.id} {...it} />)}
     </div>

@@ -1,5 +1,5 @@
 // react
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // router
 import { useNavigate } from "react-router-dom";
@@ -15,41 +15,11 @@ import { DiaryDispatchContext } from "../../App";
 import classes from "./DiaryEditor.module.css";
 import EmotionItem from "./EmotionItem";
 
-// 현 시점 기준 날짜의 형태를 YYYY-MM-DD 형태로 가져오기 위한 함수
-const getStringDate = (date) => {
-  return date.toISOString().slice(0, 10);
-};
+// util
+import { getStringDate } from "../../util/date";
+import { emotionList } from "../../util/emotion";
 
-// 감정을 나열하기 위한 배열
-const emotionList = [
-  {
-    emotion_id: 1,
-    emotion_src: process.env.PUBLIC_URL + `/assets/emotion1.png`,
-    emotion_descript: "완전 좋음",
-  },
-  {
-    emotion_id: 2,
-    emotion_src: process.env.PUBLIC_URL + `/assets/emotion2.png`,
-    emotion_descript: "좋음",
-  },
-  {
-    emotion_id: 3,
-    emotion_src: process.env.PUBLIC_URL + `/assets/emotion3.png`,
-    emotion_descript: "보통",
-  },
-  {
-    emotion_id: 4,
-    emotion_src: process.env.PUBLIC_URL + `/assets/emotion4.png`,
-    emotion_descript: "나쁨",
-  },
-  {
-    emotion_id: 5,
-    emotion_src: process.env.PUBLIC_URL + `/assets/emotion5.png`,
-    emotion_descript: "최악",
-  },
-];
-
-const DiaryEditor = () => {
+const DiaryEditor = ({ isEdit, originData }) => {
   const navigate = useNavigate();
 
   const contentRef = useRef();
@@ -58,11 +28,20 @@ const DiaryEditor = () => {
   const [emotion, setEmotion] = useState(3);
   const [content, setContent] = useState("");
 
+  useEffect(() => {
+    if (isEdit) {
+      setDate(getStringDate(new Date(originData.date)));
+      setEmotion(originData.emotion);
+      setContent(originData.content);
+    }
+  }, [isEdit, originData]);
+
+  // 감정을 선택하면 emotion state값 변환
   const handleClickEmote = (emotion_id) => {
     setEmotion(emotion_id);
   };
 
-  const { onCreate } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
   const handleSubmit = () => {
     if (content.trim() === "") {
@@ -70,17 +49,36 @@ const DiaryEditor = () => {
       return;
     }
 
-    onCreate(new Date(date).getTime(), content, emotion);
+    if (window.confirm(isEdit ? "일기를 수정할까요?" : "일기를 작성할까요?")) {
+      isEdit
+        ? onEdit(originData.id, date, content, emotion)
+        : onCreate(date, content, emotion);
+    }
 
     navigate("/", { replace: true });
   };
 
+  const handleRemove = () => {
+    if (window.confirm("일기를 삭제할까요?")) {
+      onRemove(originData.id);
+      navigate("/", { replace: true });
+    }
+  };
   return (
     <div className={classes.DiaryEditor}>
       <Header
-        headerText="새 일기 작성"
+        headerText={isEdit ? "일기 수정" : "새 일기 작성"}
         leftChild={
           <Button buttonText="< 뒤로가기" onClick={() => navigate(-1)} />
+        }
+        rightChild={
+          isEdit && (
+            <Button
+              buttonText="삭제하기"
+              type="negative"
+              onClick={() => handleRemove()}
+            />
+          )
         }
       />
       <div>
@@ -122,7 +120,7 @@ const DiaryEditor = () => {
         <section className={classes.button_wrapper}>
           <Button buttonText={"취소하기"} onClick={() => navigate(-1)} />
           <Button
-            buttonText={"작성완료"}
+            buttonText={isEdit ? "수정하기" : "작성하기"}
             type="positive"
             onClick={handleSubmit}
           />
