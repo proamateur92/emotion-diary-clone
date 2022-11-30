@@ -1,5 +1,5 @@
 // react
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 
 // router
 import { Routes, Route } from "react-router-dom";
@@ -44,22 +44,25 @@ const reducer = (state, action) => {
       return state;
     }
   }
+
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
-const DUMMY_DATA = [
-  {
-    id: 1,
-    emotion: 1,
-    content:
-      "1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기1번 일기",
-    date: 1672239600000,
-  },
-];
-
 const App = () => {
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+
+    if (localData) {
+      const diaryList = JSON.parse(localData);
+      dataId.current = diaryList.length + 1;
+
+      dispatch({ type: "INIT", data: diaryList });
+    }
+  }, []);
+
   // data는 useReducer의 두번째 인자를 받는다.
-  const [diaryData, dispatch] = useReducer(reducer, DUMMY_DATA);
+  const [diaryData, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
 
